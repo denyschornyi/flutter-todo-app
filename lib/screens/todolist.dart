@@ -98,5 +98,8 @@ class TodoListState extends State {
         builder: (context) => TodoDetail(todo),
       ),
     );
+    if (result == true) {
+      getData();
+    }
   }
 }
