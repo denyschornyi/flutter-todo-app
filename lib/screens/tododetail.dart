@@ -9,7 +9,7 @@ class TodoDetail extends StatefulWidget {
   TodoDetail(this.todo);
 
   @override
-  State<StatefulWidget> createState() => TodoDetailState();
+  State<StatefulWidget> createState() => TodoDetailState(this.todo);
 }
 
 class TodoDetailState extends State {
@@ -34,35 +34,47 @@ class TodoDetailState extends State {
         automaticallyImplyLeading: false,
         title: Text(todo.title),
       ),
-      body: Column(
-        children: <Widget>[
-          TextField(
-            controller: titleController,
-            style: textStyle,
-            decoration: InputDecoration(
-                labelText: "Title",
-                labelStyle: textStyle,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
-          ),
-          TextField(
-            controller: descriptionController,
-            style: textStyle,
-            decoration: InputDecoration(
-                labelText: "Description",
-                labelStyle: textStyle,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
-          ),
-          DropdownButton<String>(
-            items: _priorities.map((String value) {
-              return DropdownMenuItem<String>(value: value, child: Text(value));
-            }).toList(),
-            style: textStyle,
-            value: "Low",
-            onChanged: null,
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
+        child: ListView(
+          children: [
+            Column(
+              children: <Widget>[
+                TextField(
+                  controller: titleController,
+                  style: textStyle,
+                  decoration: InputDecoration(
+                      labelText: "Title",
+                      labelStyle: textStyle,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  child: TextField(
+                    controller: descriptionController,
+                    style: textStyle,
+                    decoration: InputDecoration(
+                        labelText: "Description",
+                        labelStyle: textStyle,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                  ),
+                ),
+                ListTile(
+                    title: DropdownButton<String>(
+                  items: _priorities.map((String value) {
+                    return DropdownMenuItem<String>(
+                        value: value, child: Text(value));
+                  }).toList(),
+                  style: textStyle,
+                  value: "Low",
+                  onChanged: null,
+                )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
